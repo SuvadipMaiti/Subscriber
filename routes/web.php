@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/admin/home','Admin\HomeController@index')->name('admin_home');
+Route::post('/admin/file/upload','Admin\HomeController@file_upload')->name('admin_file_upload');
