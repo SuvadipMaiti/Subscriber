@@ -21,7 +21,7 @@ class HomeControllerApi extends Controller
             return response()->json([
                 'subscribers' => $subscribers,
                 'status' => 1
-            ],201);
+            ],200);
         }else{
             return response()->json([
                 'status' => 0
@@ -56,7 +56,7 @@ class HomeControllerApi extends Controller
             return response()->json([
                 'errors' => $validator->getMessageBag(),
                 'status' => 0
-            ],201);
+            ],400);
         }
         $subs_ins = new Subscriber;
         $subs_ins->name = $request->name;
@@ -87,7 +87,7 @@ class HomeControllerApi extends Controller
             return response()->json([
                 'subscribers' => $subscribers,
                 'status' => 1
-            ],201);
+            ],200);
         }else{
             return response()->json([
                 'status' => 0
@@ -124,7 +124,7 @@ class HomeControllerApi extends Controller
             return response()->json([
                 'errors' => $validator->getMessageBag(),
                 'status' => 0
-            ],201);
+            ],400);
         }
         $subs_up = Subscriber::find($id);
         $subs_up->name = $request->name;

@@ -47,49 +47,41 @@ class HomeController extends Controller
             //get file
             $upload=$request->file('file');
             $filePath=$upload->getRealPath();
-
+          
             //open and read
             $file=fopen($filePath, 'r');
 
             $header= fgetcsv($file);
 
-            // dd($header);
-            $escapedHeader=[];
+            //dd($header);
+            $escapedHeader = [];
             //validate
             foreach ($header as $key => $value) {
                 $lheader=strtolower($value);
                 $escapedItem=preg_replace('/[^a-z]/', '', $lheader);
                 array_push($escapedHeader, $escapedItem);
             }
-
-            //looping through othe columns
+            //dd($escapedHeader);
+            //looping through other columns
             while($columns=fgetcsv($file))
             {
                 if($columns[0]=="")
                 {
                     continue;
                 }
-                //trim data
-                foreach ($columns as $key => &$value) {
-                    $value=preg_replace('/\D/','',$value);
+                $data= array_combine($escapedHeader, $columns);
+
+                // Table update
+                $name = $data['name'];
+                $email = $data['email'];
+                if($name != " " && $email != " ")
+                {
+                    $subs_ins = new Subscriber;
+                    $subs_ins->name = $name;
+                    $subs_ins->email = $email;
+                    $subs_ins->save();
+                    Session::flash('success','File sucessfully updated.');
                 }
-
-            $data= array_combine($escapedHeader, $columns);
-
-            dd($escapedHeader);
-            // Table update
-            $name=$data['name'];
-            $email=$data['email'];
-            if($name != null && $email != null)
-            {
-                $subs_ins = new Subscriber;
-                $subs_ins->name = $request->name;
-                $subs_ins->email = $request->email;
-                $subs_ins->save();
-                Session::flash('success','File sucessfully updated.');
-            }
-
-             
             }
    
         }
