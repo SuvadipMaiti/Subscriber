@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix'=>'admin','middleware'=>  ['auth'] ], function () {
+    // Route::get('/home','Admin\HomeController@index')->name('admin_home');
+    Route::get('/home','HomeController@index')->name('admin_home');
+    Route::post('/file/upload','Admin\HomeController@file_upload')->name('admin_file_upload');
+});
+Auth::routes();
 
-Route::get('/admin/home','Admin\HomeController@index')->name('admin_home');
-Route::post('/admin/file/upload','Admin\HomeController@file_upload')->name('admin_file_upload');
+Route::get('/home', 'HomeController@index')->name('home');
