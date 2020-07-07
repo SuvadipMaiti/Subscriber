@@ -150,9 +150,6 @@ class HomeControllerApi extends Controller
      */
     public function destroy($id)
     {
-        return response()->json([
-            'status' => 0
-        ],400);
         $subscriber_del = Subscriber::where('id',$id)->delete();    
         if(@$subscriber_del){
             return response()->json([

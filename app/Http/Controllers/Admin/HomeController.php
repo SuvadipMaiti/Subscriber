@@ -76,11 +76,10 @@ class HomeController extends Controller
 
             $data= array_combine($escapedHeader, $columns);
 
-
+            dd($escapedHeader);
             // Table update
             $name=$data['name'];
             $email=$data['email'];
-            dd($name);
             if($name != null && $email != null)
             {
                 $subs_ins = new Subscriber;

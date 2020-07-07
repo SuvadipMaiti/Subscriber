@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/subscribers','User\HomeControllerApi@index')->name('all_subscriber');
 Route::get('/subscribers/{id}','User\HomeControllerApi@show')->name('subscriber');
 Route::post('/subscribers/add','User\HomeControllerApi@store')->name('create_subscriber');
-Route::get('/subscribers/{id}','User\HomeControllerApi@destroy')->name('delete_subscriber');
+Route::put('/subscribers/edit/{id}','User\HomeControllerApi@update')->name('update_subscriber');
+Route::delete('/subscribers/{id}','User\HomeControllerApi@destroy')->name('delete_subscriber');
